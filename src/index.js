@@ -24,6 +24,18 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
+// Debug middleware
+app.use((req, res, next) => {
+  console.log('\n=== REQUEST DEBUG ===');
+  console.log('URL:', req.url);
+  console.log('Method:', req.method);
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  console.log('Query:', req.query);
+  console.log('===================\n');
+  next();
+});
+
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

@@ -38,26 +38,42 @@ const currencySymbolMap = {
 
 class ScrapeService {
   async scrapeProduct(url) {
+    console.log('\n=== SCRAPE SERVICE DEBUG ===');
+    console.log('Attempting to scrape URL:', url);
     try {
+      console.log('Making request with headers...');
       const response = await axios.get(url, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
       });
+      console.log('Response received, status:', response.status);
 
       const $ = cheerio.load(response.data);
+      console.log('Cheerio loaded HTML');
       
       if (url.includes('amazon')) {
+        console.log('Detected Amazon URL, using Amazon scraper');
         return await this.scrapeAmazon($, url);
       } else if (url.includes('shopify')) {
+        console.log('Detected Shopify URL, using Shopify scraper');
         return await this.scrapeShopify($);
       } else {
+        console.log('Error: Unsupported store platform');
         throw new Error('Unsupported store platform');
       }
     } catch (error) {
-      console.error('Scraping error:', error);
+      console.error('Scraping error details:', {
+        message: error.message,
+        stack: error.stack,
+        response: error.response ? {
+          status: error.response.status,
+          data: error.response.data
+        } : 'No response'
+      });
       throw new Error('Failed to scrape product information');
     }
+    console.log('===================\n');
   }
 
   async scrapeAmazon($, url) {

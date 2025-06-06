@@ -7,23 +7,28 @@ class HelioService {
   }
 
   async convertToSOL(fiatAmount) {
+    console.log('\n=== HELIO SERVICE DEBUG ===');
+    console.log('Converting fiat amount:', fiatAmount);
     try {
-      // Get SOL/USDT price from Binance
-      const response = await axios.get('https://api.binance.com/api/v3/ticker/price', {
-        params: {
-          symbol: 'SOLUSDT'
-        }
-      });
-
-      // SOL price in USDT (which is approximately 1:1 with USD)
-      const solPrice = parseFloat(response.data.price);
+      // Mock SOL price for testing
+      const solPrice = 100; // Assume 1 SOL = $100 USD
+      console.log('Using mock SOL price:', solPrice);
       
       // Convert fiat amount to SOL
-      return fiatAmount / solPrice;
+      const solAmount = fiatAmount / solPrice;
+      console.log('Converted amount:', solAmount, 'SOL');
+      return solAmount;
     } catch (error) {
-      console.error('SOL conversion error:', error);
+      console.error('SOL conversion error:', {
+        message: error.message,
+        response: error.response ? {
+          status: error.response.status,
+          data: error.response.data
+        } : 'No response'
+      });
       throw new Error('Failed to convert price to SOL');
     }
+    console.log('===================\n');
   }
 
   async createPaymentLink({ amount, currency, metadata }) {

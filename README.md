@@ -1,31 +1,32 @@
-# Solana Amazon Backend Server
+# AnonZon - Anonymous Amazon Shopping with Solana
 
-A Node.js backend server that processes orders from Amazon and Shopify, converts prices to USDC, and handles payments through Helio.
+Shop on Amazon anonymously using Solana for payments.
 
-## Features
+## 🚀 Features
 
-- Product scraping from Amazon and Shopify
-- Price conversion to USDC using CoinGecko
-- Payment processing through Helio
-- Email notifications for successful orders
-- IP-based shipping origin detection
-- Webhook handling for payment confirmations
+- 🔍 Search Amazon products by URL
+- 🛒 Add products to cart with quantity management
+- 💰 Pay with Solana cryptocurrency
+- 🔒 Anonymous shipping with no account required
+- 📱 Responsive design for all devices
 
-## Prerequisites
+## 🛠 Tech Stack
 
-- Node.js (v14 or higher)
-- npm
-- API keys for:
-  - Helio
-  - CoinGecko
-  - SendGrid
+- **Frontend**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **Blockchain**: Solana Web3.js
+- **Icons**: Heroicons
+- **Notifications**: React Hot Toast
+- **Data Fetching**: ScraperAPI (Amazon Data)
 
-## Installation
+## 📦 Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd solana-amazon
+git clone https://github.com/yourusername/anonzon.git
+cd anonzon-next
 ```
 
 2. Install dependencies:
@@ -33,66 +34,86 @@ cd solana-amazon
 npm install
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
+3. Create a `.env.local` file with the following variables:
 ```env
-PORT=3000
-HELIO_API_KEY=your_helio_api_key
-COINGECKO_API_KEY=your_coingecko_api_key
-SENDGRID_API_KEY=your_sendgrid_api_key
-ADMIN_EMAIL=your_admin_email@example.com
+SCRAPER_API_KEY=your_scraper_api_key_here
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+NEXT_PUBLIC_SOLANA_RPC_URL=https://api.devnet.solana.com
 ```
 
-## Running the Server
-
-Start the server:
+4. Run the development server:
 ```bash
-node src/index.js
+npm run dev
 ```
 
-The server will start on port 3000 (or the port specified in your .env file).
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## API Endpoints
+## 🔧 Environment Variables
 
-### POST /order
-Creates a new order and returns payment information.
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `SCRAPER_API_KEY` | Your ScraperAPI key for fetching Amazon product data | ✅ |
+| `NEXT_PUBLIC_SOLANA_NETWORK` | Solana network to use (devnet/mainnet) | ✅ |
+| `NEXT_PUBLIC_SOLANA_RPC_URL` | Solana RPC URL for the selected network | ✅ |
 
-Request body:
-```json
-{
-  "productUrl": "https://amazon.com/product-url",
-  "name": "Customer Name",
-  "address": {
-    "street": "123 Main St",
-    "city": "City",
-    "state": "State",
-    "zip": "12345",
-    "country": "Country"
-  }
-}
+## 🎯 How It Works
+
+1. **Product Search**: Paste any Amazon product URL
+2. **Validation**: Our API validates and extracts product information
+3. **Cart Management**: Add products to your cart with quantity controls
+4. **Solana Payment**: Pay using Solana cryptocurrency
+5. **Anonymous Delivery**: Products shipped without requiring personal accounts
+
+## 🏗 Project Structure
+
+```
+anonzon-next/
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   ├── api/            # API routes
+│   │   └── page.tsx        # Main page
+│   ├── components/         # Reusable components
+│   │   ├── ProductSearch.tsx
+│   │   └── Cart.tsx
+│   ├── store/              # Zustand stores
+│   │   └── cart.ts
+│   └── types/              # TypeScript types
+│       └── product.ts
+├── public/                 # Static assets
+└── README.md
 ```
 
-### POST /helio-webhook
-Handles payment notifications from Helio.
+## 🔒 Privacy Features
 
-## Error Handling
+- No user accounts required
+- Anonymous product browsing
+- Cryptocurrency payments for privacy
+- No personal data storage
+- Encrypted shipping information
 
-The server includes comprehensive error handling for:
-- Invalid requests
-- Scraping failures
-- API errors
-- Payment processing issues
+## 🚀 Deployment
 
-## Security
+Deploy on Vercel:
 
-- Helmet.js for security headers
-- CORS enabled
-- Environment variable protection
-- Webhook signature verification
+```bash
+npm install -g vercel
+vercel
+```
 
-## Contributing
+Don't forget to add your environment variables in the Vercel dashboard!
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request 
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## ⚠️ Disclaimer
+
+This project is for educational purposes. Make sure to comply with Amazon's Terms of Service and applicable laws in your jurisdiction. 
